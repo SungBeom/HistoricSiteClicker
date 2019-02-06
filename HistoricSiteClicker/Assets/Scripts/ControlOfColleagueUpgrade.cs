@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class ControlOfUpgrade : MonoBehaviour {
+
+public class ControlOfColleagueUpgrade : MonoBehaviour {
+
 
     public GameObject[] upBtn = new GameObject[6];
     public GameObject[] upText = new GameObject[6];
     public GameObject[] gameCharacter = new GameObject[6];
     public GameObject moneyText;
 
-    
-	// Use this for initialization
-	void Start () {
-        foreach(GameObject go in upBtn)
+
+    // Use this for initialization
+    void Start()
+    {
+        foreach (GameObject go in upBtn)
             go.GetComponentInChildren<Text>().text = "고용";
         foreach (GameObject gc in gameCharacter)
             gc.SetActive(false);
@@ -23,7 +26,7 @@ public class ControlOfUpgrade : MonoBehaviour {
     {
         string currentTag = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
         //  태그가 고용이 아닌 경우 업그레이드, 고용인 경우 고용
-        if(currentTag != "고용")
+        if (currentTag != "고용")
         {
             OnUpgrade();
         }
@@ -32,7 +35,7 @@ public class ControlOfUpgrade : MonoBehaviour {
         {
             OnEmploy();
         }
-       
+
     }
     void OnEmploy()
     {
@@ -40,7 +43,7 @@ public class ControlOfUpgrade : MonoBehaviour {
         int num = int.Parse(btnName[6].ToString());
         gameCharacter[num].SetActive(true);
         upText[num].GetComponent<Text>().text = "1000";
- 
+
         EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "강화";
     }
     //  unit upgrade

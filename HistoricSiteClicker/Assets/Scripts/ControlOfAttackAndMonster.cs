@@ -18,20 +18,20 @@ public class ControlOfAttackAndMonster : MonoBehaviour {
         int monsterTotalHP = Monster.GetInteger("MonsterTotalHP");
         int heroDamage = Hero.GetInteger("NormalAttackDamage");
 
-        if (monsterHP > 0 )
-        {
-            Monster.SetInteger("MonsterHP", monsterHP - heroDamage);
 
-            //  change hp image
-            ChangeHPImage(monsterTotalHP, monsterHP);
-        }
-        else
+        Monster.SetInteger("MonsterHP", monsterHP - heroDamage);
+        
+        //  check monster die
+        if (Monster.GetInteger("MonsterHP") <= 0)
         {
             MonsterChangeAndInit();
             //Debug.Log("boss die and change");
         }
-        //Debug.Log(monsterHP);
+        
+        //  change hp image
+        ChangeHPImage(monsterTotalHP, monsterHP);
     }
+
    void ChangeHPImage(float totalHP, float currentHP)
     {
         float currentImage = currentHP / totalHP;
