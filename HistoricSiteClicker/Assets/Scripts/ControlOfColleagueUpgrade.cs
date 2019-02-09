@@ -5,21 +5,29 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ControlOfColleagueUpgrade : MonoBehaviour {
-
-
     public GameObject[] upBtn = new GameObject[6];
     public GameObject[] upText = new GameObject[6];
+
     public GameObject[] gameCharacter = new GameObject[6];
+    public GameObject[] gameCharacterAttack = new GameObject[6];
     public GameObject moneyText;
 
 
     // Use this for initialization
     void Start()
     {
-        foreach (GameObject go in upBtn)
-            go.GetComponentInChildren<Text>().text = "고용";
-        foreach (GameObject gc in gameCharacter)
-            gc.SetActive(false);
+        for(int i = 0; i < upBtn.Length; i++)
+        {
+            upBtn[i].GetComponentInChildren<Text>().text = "고용";
+        }
+        for (int i = 0; i < gameCharacter.Length; i++)
+        {
+            gameCharacter[i].SetActive(false);
+        }
+        for (int i = 0; i < gameCharacterAttack.Length; i++)
+        {
+            gameCharacterAttack[i].SetActive(false);
+        }
     }
 
     public void OnButtonFunction()
@@ -35,13 +43,19 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
         {
             OnEmploy();
         }
-
     }
+    //  고용
+    //  고용시 변경사항 변경
+    //  케릭터, 공격 활성화, 버튼 text변경, 비용 text변경
     void OnEmploy()
     {
         string btnName = EventSystem.current.currentSelectedGameObject.name;
         int num = int.Parse(btnName[6].ToString());
+
+        //  
         gameCharacter[num].SetActive(true);
+        gameCharacterAttack[num].SetActive(true);
+
         upText[num].GetComponent<Text>().text = "1000";
 
         EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "강화";
@@ -58,6 +72,7 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
 
         if (money >= cost)
         {
+            ColleagueDamageUp(num);
             money = money - cost;
             cost = cost + cost * (num + 1);
 
@@ -69,5 +84,13 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
             Debug.Log("Upgrade fail");
         }
 
+    }
+    //  character damage up
+    void ColleagueDamageUp(int characterNum)
+    {
+        int damage = gameCharacterAttack[characterNum].GetComponent<Animator>().GetInteger("AttackDamage");
+        //  damage 변경 공식 추가
+        damage = (int)(damage * 1.5f);
+        gameCharacterAttack[characterNum].GetComponent<Animator>().SetInteger("AttackDamage", damage);
     }
 }

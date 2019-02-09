@@ -67,7 +67,7 @@ public class ControlOfHeroUpgrade : MonoBehaviour {
             Debug.Log("Upgrade fail");
         }
     }
-
+    //  hero attack damage increase
     void HeroNormalAttackDamage()
     {
         int currentDamage = Hero.GetInteger("NormalAttackDamage");

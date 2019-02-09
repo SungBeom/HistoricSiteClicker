@@ -7,14 +7,42 @@ public class ControlOfMonster : MonoBehaviour {
 
     public Animator Hero;
     public Animator Monster;
+
+    public GameObject monsterImage;
     public GameObject monsterHPImage;
     public GameObject StageText;
 
+    
+    //  차후 저장된 정보를 통한 초기화에 활용
+    //public void Start()
+    //{
+    //
+    //}
+    public void Update()
+    {
+        int monsterHP = Monster.GetInteger("MonsterHP");
+        int monsterTotalHP = Monster.GetInteger("MonsterTotalHP");
+
+        //  check monster die
+        if (Monster.GetInteger("MonsterHP") <= 0)
+        {
+            MonsterStageUp();
+            MonsterHPInit();
+            MonsterChange();
+            MonsterStage();
+            //Debug.Log("boss die and change");
+
+            monsterHP = Monster.GetInteger("MonsterHP");
+            monsterTotalHP = Monster.GetInteger("MonsterTotalHP");
+        }
+
+        ChangeHPImage(monsterTotalHP, monsterHP);
+        //  자동 공격시 피격 당함을 추가 해야하나..
+    }
     //  공격 당함 
     //  todo : 
     public void BeAttacked()
     {
-        //Hero.SetTrigger("NormalAttackTrigger");
         Monster.SetTrigger("MonsterHitTrigger");
 
         int monsterHP = Monster.GetInteger("MonsterHP");
@@ -29,14 +57,19 @@ public class ControlOfMonster : MonoBehaviour {
         {
             MonsterStageUp();
             MonsterHPInit();
-            RelicsStage();
+            MonsterChange();
+            MonsterStage();
             //Debug.Log("boss die and change");
+
+            monsterHP = Monster.GetInteger("MonsterHP");
+            monsterTotalHP = Monster.GetInteger("MonsterTotalHP");
         }
 
         //  change hp image
         ChangeHPImage(monsterTotalHP, monsterHP);
     }
 
+    // check monster hp
     void ChangeHPImage(float totalHP, float currentHP)
     {
         float currentImage = currentHP / totalHP;
@@ -62,10 +95,12 @@ public class ControlOfMonster : MonoBehaviour {
     //  스테이지 확인 후 변경
     void MonsterChange()
     {
-        //int stage = Monster.GetInteger("MonsterStage");
-        //Monster.SetInteger("MonsterStage", stage + 1);
+        string monsterImagePath = string.Format("Images/Monster/{0}", Monster.GetInteger("MonsterStage"));
+        monsterImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
+
     }
-    void RelicsStage()
+    //  유적지 단계 변경
+    void MonsterStage()
     {
         int stage = Monster.GetInteger("MonsterStage");
         StageText.GetComponent<Text>().text = stage.ToString();

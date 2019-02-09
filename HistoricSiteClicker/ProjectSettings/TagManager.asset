@@ -44,3 +44,6 @@ TagManager:
   - name: Submap
     uniqueID: 3993409743
     locked: 0
+  - name: ColleagueAttack
+    uniqueID: 834050635
+    locked: 0
