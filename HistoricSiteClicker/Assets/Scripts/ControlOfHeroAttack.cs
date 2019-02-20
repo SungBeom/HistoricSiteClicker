@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlOfHeroAttack : MonoBehaviour {
-
-
+public class ControlOfHeroAttack : MonoBehaviour
+{
     public Animator Hero;
+    ControlOfMonster controlOfMonster;
+
+    void Start()
+    {
+        controlOfMonster = FindObjectOfType<ControlOfMonster>();
+    }
     //public Animator Monster;
     //public GameObject monsterHPImage;
 
@@ -18,6 +23,8 @@ public class ControlOfHeroAttack : MonoBehaviour {
 
     void NormalAttack()
     {
+        int heroDamage = Hero.GetInteger("NormalAttackDamage");
         Hero.SetTrigger("NormalAttackTrigger");
+        controlOfMonster.BeAttacked(heroDamage);
     }
 }
