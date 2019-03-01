@@ -6,8 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class ControlOfHeroUpgrade : MonoBehaviour {
 
-    public GameObject[] upBtn = new GameObject[6];
-    public GameObject[] upText = new GameObject[6];
+    public GameObject[] upBtn;
+    public GameObject[] upText;
     public GameObject moneyText;
     public Animator Hero;
 
@@ -57,7 +57,7 @@ public class ControlOfHeroUpgrade : MonoBehaviour {
             cost = cost + cost * (num + 1);
 
             //  todo : 차후에는 구분되서 강화가 되어야한다.
-            HeroNormalAttackDamage();
+            HeroNormalAttackDamageUpgrade();
 
             moneyText.GetComponent<Text>().text = money.ToString();
             upText[num].GetComponent<Text>().text = cost.ToString();
@@ -68,7 +68,7 @@ public class ControlOfHeroUpgrade : MonoBehaviour {
         }
     }
     //  hero attack damage increase
-    void HeroNormalAttackDamage()
+    void HeroNormalAttackDamageUpgrade()
     {
         int currentDamage = Hero.GetInteger("NormalAttackDamage");
         Hero.SetInteger("NormalAttackDamage", currentDamage + 10);

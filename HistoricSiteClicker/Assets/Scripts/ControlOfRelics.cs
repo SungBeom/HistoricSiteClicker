@@ -12,9 +12,11 @@ using System;
 public class ControlOfRelics : MonoBehaviour {
     public Animator hero;
     public Animator monster;
+    public uint[][] currentRelics;
 
     GameObject parentObject;
     Transform relicsImage;
+
     //  차후 저장된 값에 따라  초기화 해야함.
     //public void Start()
     //{
@@ -22,7 +24,7 @@ public class ControlOfRelics : MonoBehaviour {
     void Start()
     {
         parentObject = GameObject.Find("RelicsObject");
-        relicsImage = null;
+        //relicsImage = null;
     }
 
     //  유물 획득
@@ -34,14 +36,7 @@ public class ControlOfRelics : MonoBehaviour {
         int relicsSecond = (stage / 20) % 5;
 
         string relicsName = string.Format("RelicsAll/RelicsAllScrollView/Viewport/Content/RelicsAllShowObject/RelicsAllStage{0}/RelicsAllImageObject{0}/RelicsImage{0}_{1}", relicsFirst, relicsSecond);
-
-
-        //  Debug.Log(relicsName);
-        //  stage에 따른 image호출(특정 스테이지)
-        //  Debug.Log(relicsFirst);
-        //  Debug.Log(relicsSecond - 1);
-        //  Debug.Log(relicsName);
-
+        
         relicsImage = parentObject.transform.Find(relicsName);
         Debug.Log(path);
         relicsImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(path);

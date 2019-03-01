@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ControlOfColleagueUpgrade : MonoBehaviour {
-    public GameObject[] upBtn = new GameObject[6];
-    public GameObject[] upText = new GameObject[6];
+    public GameObject[] upBtn;
+    public GameObject[] upText;
 
-    public GameObject[] gameCharacter = new GameObject[6];
-    public GameObject[] gameCharacterAttack = new GameObject[6];
+    public GameObject[] gameCharacter;
+    public GameObject[] gameCharacterAttack;
     public GameObject moneyText;
 
 
@@ -18,48 +18,42 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
     {
         for(int i = 0; i < upBtn.Length; i++)
         {
-            upBtn[i].GetComponentInChildren<Text>().text = "고용";
-        }
-        for (int i = 0; i < gameCharacter.Length; i++)
-        {
-            gameCharacter[i].SetActive(false);
-        }
-        for (int i = 0; i < gameCharacterAttack.Length; i++)
-        {
-            gameCharacterAttack[i].SetActive(false);
+            upBtn[i].GetComponentInChildren<Text>().text = "강화";
+            upText[i].GetComponent<Text>().text = "1000";
         }
     }
 
-    public void OnButtonFunction()
+    public void OnAction()
     {
-        string currentTag = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
+        OnUpgrade();
+
+        //string currentTag = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
         //  태그가 고용이 아닌 경우 업그레이드, 고용인 경우 고용
-        if (currentTag != "고용")
-        {
-            OnUpgrade();
-        }
-        //  고용을 강화로 변경
-        else
-        {
-            OnEmploy();
-        }
+        //  if (currentTag != "고용")
+        //  {
+        //      OnUpgrade();
+        //  }
+        //  //  고용을 강화로 변경
+        //  else
+        //  {
+        //      OnEmploy();
+        //  }
     }
     //  고용
     //  고용시 변경사항 변경
     //  케릭터, 공격 활성화, 버튼 text변경, 비용 text변경
-    void OnEmploy()
-    {
-        string btnName = EventSystem.current.currentSelectedGameObject.name;
-        int num = int.Parse(btnName[6].ToString());
-
-        //  
-        gameCharacter[num].SetActive(true);
-        gameCharacterAttack[num].SetActive(true);
-
-        upText[num].GetComponent<Text>().text = "1000";
-
-        EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "강화";
-    }
+    //  void OnEmploy()
+    //  {
+    //      string btnName = EventSystem.current.currentSelectedGameObject.name;
+    //      int num = int.Parse(btnName[6].ToString());
+    //  
+    //      //  
+    //      gameCharacter[num].SetActive(true);
+    //      gameCharacterAttack[num].SetActive(true);
+    //  
+    //  
+    //      EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "강화";
+    //  }
     //  unit upgrade
     //  todo : 업그레이드에 관한 비율은 차후 조정
     void OnUpgrade()
