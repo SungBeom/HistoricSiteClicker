@@ -74,10 +74,11 @@ public class ControlOfMonster : MonoBehaviour {
     {
         int stage = monster.GetInteger("MonsterStage");
         monster.SetInteger("MonsterStage", stage + 1);
-        if (stage % 20 == 0)
+
+        if (stage % 10 == 0)
         {
             //Debug.Log(" Get Relics : " + "stage: " + stage + "----- stage%20 : " + stage % 20);
-            controlOfRelics.GetRelics(stage);
+            controlOfRelics.GetRelicsPiece(stage);
         }
     }
 

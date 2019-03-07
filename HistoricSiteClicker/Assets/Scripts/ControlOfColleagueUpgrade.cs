@@ -23,22 +23,22 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
         }
     }
 
-    public void OnAction()
-    {
-        OnUpgrade();
-
-        //string currentTag = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
-        //  태그가 고용이 아닌 경우 업그레이드, 고용인 경우 고용
-        //  if (currentTag != "고용")
-        //  {
-        //      OnUpgrade();
-        //  }
-        //  //  고용을 강화로 변경
-        //  else
-        //  {
-        //      OnEmploy();
-        //  }
-    }
+    //public void OnAction()
+    //{
+    //    OnUpgrade();
+    //
+    //    //string currentTag = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
+    //    //  태그가 고용이 아닌 경우 업그레이드, 고용인 경우 고용
+    //    //  if (currentTag != "고용")
+    //    //  {
+    //    //      OnUpgrade();
+    //    //  }
+    //    //  //  고용을 강화로 변경
+    //    //  else
+    //    //  {
+    //    //      OnEmploy();
+    //    //  }
+    //}
     //  고용
     //  고용시 변경사항 변경
     //  케릭터, 공격 활성화, 버튼 text변경, 비용 text변경
@@ -56,22 +56,23 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
     //  }
     //  unit upgrade
     //  todo : 업그레이드에 관한 비율은 차후 조정
-    void OnUpgrade()
+    public void ColleagueUpgrade()
     {
         string btnName = EventSystem.current.currentSelectedGameObject.name;
-        int num = int.Parse(btnName[6].ToString());
+        int colleagueNum;
+        int.TryParse(btnName.Substring(btnName.Length -1), out colleagueNum);
 
-        int cost = int.Parse(upText[num].GetComponent<Text>().text);
+        int cost = int.Parse(upText[colleagueNum].GetComponent<Text>().text);
         int money = int.Parse(moneyText.GetComponent<Text>().text);
 
         if (money >= cost)
         {
-            ColleagueDamageUp(num);
+            ColleagueDamageUp(colleagueNum);
             money = money - cost;
-            cost = cost + cost * (num + 1);
+            cost = cost + cost * (colleagueNum + 1);
 
             moneyText.GetComponent<Text>().text = money.ToString();
-            upText[num].GetComponent<Text>().text = cost.ToString();
+            upText[colleagueNum].GetComponent<Text>().text = cost.ToString();
         }
         else
         {
