@@ -22,7 +22,6 @@ public class ControlOfColleagueAttack : MonoBehaviour {
         {
             yield return new WaitForSeconds(1.0f);     //  1초후 공격
             controlOfMonster.BeAttacked(ColleagueAttack());
-            //Debug.Log("Test - " + gameObject.name);
         }
     }
     //  공격

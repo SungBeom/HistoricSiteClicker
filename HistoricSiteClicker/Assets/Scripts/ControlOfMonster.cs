@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ControlOfMonster : MonoBehaviour {
-
     public Animator Hero;
     public Animator monster;
     
@@ -49,7 +48,19 @@ public class ControlOfMonster : MonoBehaviour {
         ChangeHPImage(monsterTotalHP, monsterHP);
     }
 
+    //  일정 시간안에 몬스터를 몹잡는 경우
+    public void TurnTimeOut()
+    {
+        int monsterHP = monster.GetInteger("MonsterHP");
+        int monsterTotalHP = monster.GetInteger("MonsterTotalHP");
 
+        MonsterStageDown();
+        MonsterHPInit();
+        MonsterChange();
+        MonsterStage();
+
+        ChangeHPImage(monsterTotalHP, monsterHP);
+    }
     // check monster hp
     void ChangeHPImage(float totalHP, float currentHP)
     {
@@ -82,6 +93,13 @@ public class ControlOfMonster : MonoBehaviour {
         }
     }
 
+    //  유적 단계 변화
+    //  유적 파괴시 단계 증가
+    void MonsterStageDown()
+    {
+        int stage = monster.GetInteger("MonsterStage");
+        monster.SetInteger("MonsterStage", stage -1);
+    }
 
     //  몬스터 변경
     //  스테이지 확인 후 변경

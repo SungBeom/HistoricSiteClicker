@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 public class ControlOfColleagueUpgrade : MonoBehaviour {
     public GameObject[] upBtn;
     public GameObject[] upText;
-
-    public GameObject[] gameCharacter;
     public GameObject[] gameCharacterAttack;
     public GameObject moneyText;
 
