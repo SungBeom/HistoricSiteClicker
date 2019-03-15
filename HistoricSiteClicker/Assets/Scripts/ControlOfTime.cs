@@ -7,9 +7,12 @@ public class ControlOfTime : MonoBehaviour
 {
     public Text playTimeText;
     public Text turnEndTimeText;
+    
     // Start is called before the first frame update
     void Start()
     {
+        //playTimeText.text = string.Format("{0}",RelicsManager.Instance.playTime);
+        //turnEndTimeText.text = string.Format("{0}", RelicsManager.Instance.endOfTurnTime);
         StartCoroutine("PlayTime");
         StartCoroutine("TurnEndTime");
     }
@@ -37,7 +40,7 @@ public class ControlOfTime : MonoBehaviour
             if (time <= 0)
             {
                 //ControlOfMonster.Instance.TurnTimeOut();
-                time = 30.0f;
+                time = 15.0f;
             }
             turnEndTimeText.text = string.Format("{0}", time);   
         }
