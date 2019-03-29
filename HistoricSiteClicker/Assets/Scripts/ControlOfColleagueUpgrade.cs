@@ -52,6 +52,7 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
     //  
     //      EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "강화";
     //  }
+
     //  unit upgrade
     //  todo : 업그레이드에 관한 비율은 차후 조정
     public void ColleagueUpgrade()
@@ -76,14 +77,19 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
         {
             Debug.Log("Upgrade fail");
         }
-
     }
     //  character damage up
     void ColleagueDamageUp(int characterNum)
     {
-        int damage = gameCharacterAttack[characterNum].GetComponent<Animator>().GetInteger("AttackDamage");
+        //int damage = gameCharacterAttack[characterNum].GetComponent<Animator>().GetInteger("AttackDamage");
+        ////  damage 변경 공식 추가
+        //damage = (int)(damage * 1.5f);
+        //gameCharacterAttack[characterNum].GetComponent<Animator>().SetInteger("AttackDamage", damage);
+
+
+        int damage = RelicsManager.Instance.colleagueDamage[characterNum];
         //  damage 변경 공식 추가
         damage = (int)(damage * 1.5f);
-        gameCharacterAttack[characterNum].GetComponent<Animator>().SetInteger("AttackDamage", damage);
+        RelicsManager.Instance.colleagueDamage[characterNum] = damage;
     }
 }

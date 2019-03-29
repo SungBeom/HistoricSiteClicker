@@ -3992,9 +3992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db59f12c3ace45c4f9fb9056d712e022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterImage: {fileID: 1302935904}
-  monsterHPImage: {fileID: 214110498}
-  stageText: {fileID: 1515794238}
+  lerpSpeed: 0
 --- !u!4 &433910908
 Transform:
   m_ObjectHideFlags: 0
@@ -4970,7 +4968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63df3dde8af34ce4ba6b45dd295afc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hero: {fileID: 1835506524}
 --- !u!4 &492570294
 Transform:
   m_ObjectHideFlags: 0
@@ -9142,10 +9139,15 @@ MonoBehaviour:
   playTime: 100
   endOfTimeDefalut: 15
   endOfTurnTime: 15
+  monsterImage: {fileID: 1302935904}
+  monsterHPImage: {fileID: 214110498}
+  stageText: {fileID: 1515794238}
+  monsterTotalHP: 100
   monsterHP: 100
-  relicStage: 1
-  heroDamage: 0
-  colleagueDamage: 
+  stage: 0
+  heroAnimator: {fileID: 1835506524}
+  heroDamage: 80
+  colleagueDamage: 64000000c8000000
 --- !u!1 &720915572
 GameObject:
   m_ObjectHideFlags: 0
@@ -19307,7 +19309,7 @@ GameObject:
   - component: {fileID: 1835506526}
   - component: {fileID: 1835506525}
   m_Layer: 0
-  m_Name: CharacterSetMain
+  m_Name: HeroObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -23,6 +23,7 @@ public class ControlOfRelics : MonoBehaviour {
     {
 
         //  유물 위치에 대한 부모 값(유물 조각은 처음에 set active false이다.)
+        // 변경해야함.
         parentObject = GameObject.Find("RelicsObject");
 
         //  유물
@@ -67,6 +68,7 @@ public class ControlOfRelics : MonoBehaviour {
             }
         }
 
+        //
         if(check)
         {
             relicsImage.GetComponent<Image>().color = new Color32(255, 255, 225, 100);

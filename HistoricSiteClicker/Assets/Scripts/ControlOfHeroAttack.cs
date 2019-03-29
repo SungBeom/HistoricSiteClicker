@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class ControlOfHeroAttack : MonoBehaviour
 {
-    public Animator Hero;
-    ControlOfMonster controlOfMonster;
-
-    void Start()
-    {
-        controlOfMonster = FindObjectOfType<ControlOfMonster>();
-    }
-    //public Animator Monster;
-    //public GameObject monsterHPImage;
-
     //  기본 공격
-    //  todo : skill 공격 추가 여부 확인 및 이를 통한 반영(이벤트 또는 게이지 스킬
     public void HeroAttack()
     {
         NormalAttack();
     }
-
+    // 기본 공격 적용
     void NormalAttack()
     {
-        int heroDamage = Hero.GetInteger("NormalAttackDamage");
-        Hero.SetTrigger("NormalAttackTrigger");
-        controlOfMonster.BeAttacked(heroDamage);
+        int heroDamage = RelicsManager.Instance.heroDamage;
+        RelicsManager.Instance.heroAnimator.SetTrigger("NormalAttackTrigger"); // todo : 케릭터들이 들고있는 기본 공격 트리거로 변경
+        ControlOfMonster.Instance.BeAttacked(heroDamage);
     }
 }

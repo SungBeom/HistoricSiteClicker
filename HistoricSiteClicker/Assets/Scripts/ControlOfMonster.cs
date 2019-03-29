@@ -10,38 +10,31 @@ public class ControlOfMonster : MonoBehaviour {
         get { return instance; }
     }
 
-    public GameObject monsterImage;
-    public GameObject monsterHPImage;
-    public Text stageText;
-    ControlOfRelics controlOfRelics;
 
-    //  차후 저장된 정보를 통한 초기화에 활용
-    int monsterHP;
-    int monsterTotalHP;
-    int stage;
+    ControlOfRelics controlOfRelics;
+    [SerializeField]
+    private float lerpSpeed;
 
     void Awake()
     {
         instance = this;
     }
 
+
     public void Start()
     {
         controlOfRelics = FindObjectOfType<ControlOfRelics>();
-
-        monsterHP = RelicsManager.Instance.monsterHP;
-        monsterTotalHP = RelicsManager.Instance.monsterHP;
-        stage = RelicsManager.Instance.relicStage;
-        //  todo : 몬스터에 대한 초기화 코드 필요
+        RelicsManager.Instance.monsterTotalHP = RelicsManager.Instance.monsterTotalHP * RelicsManager.Instance.stage;
+        RelicsManager.Instance.monsterHP = RelicsManager.Instance.monsterTotalHP;
     }
 
     //  공격 당함 
     //  todo : 
     public void BeAttacked(int damage)
     {
-        monsterHP = monsterHP - damage;
+        RelicsManager.Instance.monsterHP = RelicsManager.Instance.monsterHP - damage;
         //  check monster die
-        if (monsterHP <= 0)
+        if (RelicsManager.Instance.monsterHP <= 0)
         {
             MonsterStageUp();
             MonsterHPInit();
@@ -49,10 +42,10 @@ public class ControlOfMonster : MonoBehaviour {
             MonsterStage();
             //Debug.Log("boss die and change");
             RelicsManager.Instance.endOfTurnTime = RelicsManager.Instance.endOfTimeDefalut;
-            RelicsManager.Instance.playTimeText.text = string.Format("{0}", RelicsManager.Instance.endOfTimeDefalut);
+            RelicsManager.Instance.turnEndTimeText.text = string.Format("{0}", RelicsManager.Instance.endOfTimeDefalut);
         }
         //  change hp image
-        ChangeHPImage(monsterTotalHP, monsterHP);
+        ChangeHPImage(RelicsManager.Instance.monsterTotalHP, RelicsManager.Instance.monsterHP);
     }
 
     //  일정 시간안에 몬스터를 몹잡는 경우
@@ -63,21 +56,22 @@ public class ControlOfMonster : MonoBehaviour {
         MonsterChange();
         MonsterStage();
 
-        ChangeHPImage(monsterTotalHP, monsterHP);
+        ChangeHPImage(RelicsManager.Instance.monsterTotalHP, RelicsManager.Instance.monsterHP);
     }
     // check monster hp
     void ChangeHPImage(int totalHP, int currentHP)
     {
-        float currentImage = currentHP / totalHP;
-        monsterHPImage.GetComponent<Image>().fillAmount = (float)System.Math.Round(currentImage, 2);
+        float hpCurrent = (float)currentHP / (float)totalHP;
+        //Debug.LogError(hpCurrent);
+        RelicsManager.Instance.monsterHPImage.GetComponent<Image>().fillAmount = hpCurrent;
     }
 
 
     //  몬스터 체력 초기화(stage에 따른 체력 변화)
     void MonsterHPInit()
     {
-        int HP = 100 * stage;// * stage;
-        monsterTotalHP = monsterHP = HP;
+        int HP = 100 * RelicsManager.Instance.stage;// * stage;
+        RelicsManager.Instance.monsterTotalHP = RelicsManager.Instance.monsterHP = HP;
     }
 
 
@@ -85,12 +79,12 @@ public class ControlOfMonster : MonoBehaviour {
     //  유적 파괴시 단계 증가
     void MonsterStageUp()
     {
-        stage += 1;
+        RelicsManager.Instance.stage += 1;
 
-        if (stage % 10 == 0)
+        if (RelicsManager.Instance.stage % 10 == 0)
         {
             //Debug.Log(" Get Relics : " + "stage: " + stage + "----- stage%20 : " + stage % 20);
-            controlOfRelics.GetRelicsPiece(stage);
+            controlOfRelics.GetRelicsPiece(RelicsManager.Instance.stage);
         }
     }
 
@@ -98,21 +92,21 @@ public class ControlOfMonster : MonoBehaviour {
     //  유적 파괴시 단계 증가
     void MonsterStageDown()
     {
-        stage -= 1;
+        RelicsManager.Instance.stage -= 1;
     }
 
     //  몬스터 변경
     //  스테이지 확인 후 변경
     void MonsterChange()
     {
-        string monsterImagePath = string.Format("Images/Monster/{0}", stage);
-        monsterImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
+        string monsterImagePath = string.Format("Images/Monster/{0}", RelicsManager.Instance.stage);
+        RelicsManager.Instance.monsterImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(monsterImagePath);
     }
 
 
     //  유적지 단계 변경
     void MonsterStage()
     {
-        stageText.GetComponent<Text>().text = stage.ToString();
+        RelicsManager.Instance.stageText.GetComponent<Text>().text = RelicsManager.Instance.stage.ToString();
     }
 }

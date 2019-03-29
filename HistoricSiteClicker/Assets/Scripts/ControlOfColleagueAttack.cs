@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class ControlOfColleagueAttack : MonoBehaviour {
     public GameObject monster;
-    ControlOfMonster controlOfMonster;
-    //public ControlOfMonster controlOfMonster;
-    //차후에 초를 받을 수 있도록 변경
+    int colleagueNum;
+
+    // todd : 케릭터 특성에 따른 공격 변화 필요
     void Start()
     {
-        controlOfMonster = FindObjectOfType<ControlOfMonster>();
         StartCoroutine("AttackStart");
+        int.TryParse(gameObject.name.Substring(gameObject.name.Length - 1), out colleagueNum);
         //Debug.Log("Test-coroutine-" + gameObject.name);
     }
 
@@ -21,20 +21,14 @@ public class ControlOfColleagueAttack : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(1.0f);     //  1초후 공격
-            controlOfMonster.BeAttacked(ColleagueAttack());
+            ControlOfMonster.Instance.BeAttacked(ColleagueAttack());
         }
     }
-    //  공격
+    //  동료들의 공격
     int ColleagueAttack()
     {
-        //int monsterHP = monster.GetComponent<Animator>().GetInteger("MonsterHP");
-        int colleagueDamage = gameObject.GetComponent<Animator>().GetInteger("AttackDamage");
-
-        // monsterHP -= colleagueDamage;
-        // monster.GetComponent<Animator>().SetInteger("MonsterHP", monsterHP);
-
-        //controlOfMonster.BeAttacked(colleagueDamage);  // 공격시 몬스터의 변화를 위해
-
+        //int colleagueDamage = gameObject.GetComponent<Animator>().GetInteger("AttackDamage");
+        int colleagueDamage = RelicsManager.Instance.colleagueDamage[colleagueNum];
         return colleagueDamage;
     }
 }
