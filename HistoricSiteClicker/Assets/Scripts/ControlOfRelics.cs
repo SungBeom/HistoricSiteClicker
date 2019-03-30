@@ -41,7 +41,7 @@ public class ControlOfRelics : MonoBehaviour {
         string relicsName = string.Format("RelicsAll/RelicsAllScrollView/Viewport/Content/RelicsAllShowObject/RelicsAllStage{0}/RelicsImage{1}", relicsFirst, relicsSecond);
         Transform relicsPieceImage = parentObject.transform.Find(relicsName);
 
-        Debug.Log(path);
+        ///Debug.Log(path);
         //relicsImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(path);
         relicsPieceImage.GetComponent<Image>().color = new Color32(255, 255, 225, 100);
         relics[relicsFirst, relicsSecond] = 1;
