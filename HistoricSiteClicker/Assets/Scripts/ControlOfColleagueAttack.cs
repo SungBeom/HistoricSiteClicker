@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ControlOfColleagueAttack : MonoBehaviour {
-    public GameObject monster;
     int colleagueNum;
 
     // todd : 케릭터 특성에 따른 공격 변화 필요
     void Start()
     {
         StartCoroutine("AttackStart");
+
         int.TryParse(gameObject.name.Substring(gameObject.name.Length - 1), out colleagueNum);
-        //Debug.Log("Test-coroutine-" + gameObject.name);
+        //Debug.Log("Test-coroutine-" + colleagueNum);
     }
 
     //  공격 코루틴
@@ -28,7 +28,6 @@ public class ControlOfColleagueAttack : MonoBehaviour {
     int ColleagueAttack()
     {
         //int colleagueDamage = gameObject.GetComponent<Animator>().GetInteger("AttackDamage");
-        int colleagueDamage = RelicsManager.Instance.colleagueDamage[colleagueNum];
-        return colleagueDamage;
+        return (RelicsManager.Instance.inColleagueDamage[colleagueNum] + RelicsManager.Instance.inColleagueDamage[colleagueNum] * RelicsManager.Instance.relicsEhance * RelicsManager.Instance.relicsUpgrade[0]);
     }
 }

@@ -66,7 +66,9 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
 
         if (money >= cost)
         {
-            ColleagueDamageUp(colleagueNum);
+            //  강화 횟수 증가
+            RelicsManager.Instance.colleagueUpgrade[colleagueNum]++;
+            RelicsManager.Instance.inColleagueDamage[colleagueNum] = RelicsManager.Instance.colleagueDamage[colleagueNum] * RelicsManager.Instance.colleagueUpgrade[colleagueNum];
             money = money - cost;
             cost = cost + cost * (colleagueNum + 1);
 
@@ -85,8 +87,8 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
         ////  damage 변경 공식 추가
         //damage = (int)(damage * 1.5f);
         //gameCharacterAttack[characterNum].GetComponent<Animator>().SetInteger("AttackDamage", damage);
-
-
+    
+    
         int damage = RelicsManager.Instance.colleagueDamage[characterNum];
         //  damage 변경 공식 추가
         damage = (int)(damage * 1.5f);

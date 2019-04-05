@@ -9,8 +9,8 @@ public class ControlOfHeroUpgrade : MonoBehaviour {
     public GameObject[] upBtn;
     public GameObject[] upText;
     public GameObject moneyText;
-    public Animator Hero;
 
+    public int selectUpgrade;
 
     // Use this for initialization
     void Start()
@@ -48,29 +48,37 @@ public class ControlOfHeroUpgrade : MonoBehaviour {
         string btnName = EventSystem.current.currentSelectedGameObject.name;
         int num = int.Parse(btnName[17].ToString());
 
-        int cost = int.Parse(upText[num].GetComponent<Text>().text);
-        int money = int.Parse(moneyText.GetComponent<Text>().text);
 
-        if (money >= cost)
+
+        if (CheckUpgrade())
         {
-            money = money - cost;
-            cost = cost + cost * (num + 1);
-
-            //  todo : 차후에는 구분되서 강화가 되어야한다.
-            HeroNormalAttackDamageUpgrade();
-
-            moneyText.GetComponent<Text>().text = money.ToString();
-            upText[num].GetComponent<Text>().text = cost.ToString();
+            Debug.Log("Upgrade success");
         }
         else
         {
             Debug.Log("Upgrade fail");
         }
     }
+    bool CheckUpgrade()
+    {
+        int money = int.Parse(moneyText.GetComponent<Text>().text);
+        int upgradeCost = RelicsManager.Instance.heroUpgradePrice[selectUpgrade];
+        if (money >= upgradeCost)
+        {
+            money = money - upgradeCost;
+            RelicsManager.Instance.heroUpgrade[selectUpgrade]++;
+            RelicsManager.Instance.heroUpgradePrice[selectUpgrade] = upgradeCost * RelicsManager.Instance.heroUpgrade[selectUpgrade];
+
+            moneyText.GetComponent<Text>().text = money.ToString();
+            //upText[num].GetComponent<Text>().text = cost.ToString();
+            return true;
+        }
+
+        return false;
+    }
     //  hero attack damage increase
     void HeroNormalAttackDamageUpgrade()
     {
-        int currentDamage = Hero.GetInteger("NormalAttackDamage");
-        Hero.SetInteger("NormalAttackDamage", currentDamage + 10);
+
     }
 }

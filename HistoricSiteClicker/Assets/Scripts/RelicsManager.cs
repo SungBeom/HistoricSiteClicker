@@ -23,6 +23,22 @@ public class RelicsManager : MonoBehaviour
         turnEndTimeText.text = string.Format("{0}", RelicsManager.Instance.endOfTurnTime);
 
         StartCoroutine("PlayTime");
+
+        //  hero init
+        inHerAttackType = new int[heroAttactType.Length];
+        for (int i =0; i<heroAttactType.Length; i++)
+        {
+            inHerAttackType[i] = heroAttactType[i];
+        }
+
+        //  colleague init
+        inColleagueDamage = new int[colleagueUpgrade.Length];
+        for (int i =0; i<colleagueUpgrade.Length; i++)
+        {
+            inColleagueDamage[i] = colleagueDamage[i] * colleagueUpgrade[i];
+        }
+
+
     }
 
 
@@ -46,6 +62,11 @@ public class RelicsManager : MonoBehaviour
             float.TryParse(playTimeText.text, out playTime);
             playTime -= 1.0f;
             playTimeText.text = string.Format("{0}", playTime);
+
+            if(playTime <= 0)
+            {
+                Debug.Log("end==========================");
+            }
 
             //  턴 시간
             float.TryParse(turnEndTimeText.text, out endOfTurnTime);
@@ -79,15 +100,30 @@ public class RelicsManager : MonoBehaviour
     // - hero animator;
     // - hero damage
     public Animator heroAnimator;
-    public int heroDamage;
+    //  공격력, 치명타확률, 치명타데미지
+    public int[] heroAttactType;
+    public int[] heroUpgrade;
+    public int[] heroUpgradePrice;
+
+    [HideInInspector]
+    public int[] inHerAttackType;
+
 
     // ========== ========== ========== ==========
     // Colleague Control
     // todo : colleagueDamage 부분은 manager 통합후 변경되야함 + ControlOfColleagueAttack내부 코드도 변경되야함 ...흠 기본공격으로 초기화 해서 받아온다?
-    // public int colleagueNum;
-    public int[] colleagueDamage;
-    //public int[] 
+    // public int colleagueNum; -> test용도
 
+    //  colleagueUpgrade db에서 강화 횟수 들고옴
+    //  colleagueDamage0 영웅의 공격력을 저장함
+    //  colleagueDamage1 영웅의 공격력을 저장함
+    public int[] colleagueUpgrade;
+    public int[] colleagueUpgradePrice;
+    public int[] colleagueDamage;
+
+    [HideInInspector]
+    public int[] inColleagueDamage;
+    //public int[] 
 
 
     // ========== ========== ========== ==========
@@ -96,7 +132,13 @@ public class RelicsManager : MonoBehaviour
     //    -> start했을때 유물 현황에 따른 유물 변화
     //    -> stage 변화에 따른 유물 변화
     //    -> 유물 활성에 따른 변화
-    // - GameManager에서 Relic 데이터를 들고온다 가정
-    // - 유물 초기화에 대한 알고리즘 구현 필요함(유물이 추가된다고 가정하면, 초기화 하는데 많은 시간이 걸림)
+
+    //  내부 relics 내부 강화 적용
+    //  relicsUpgrade는 db에서 강화 횟수 들고옴
+    //  relicsEhance는 유적의 저주를 약화 시켜 영웅을 강화 시킴
+    //  relicsWeaken는 유적의 저주를 약화 시켜 유적을 약화 시킴
+    public int[] relicsUpgrade;
+    public int relicsEhance;
+    public int relicsWeaken;
 
 }
