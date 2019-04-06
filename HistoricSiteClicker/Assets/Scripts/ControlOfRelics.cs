@@ -35,7 +35,7 @@ public class ControlOfRelics : MonoBehaviour {
     //  유물 획득
     public void GetRelicsPiece(int stage)
     {
-        string path = "Images/Relics/relics0";      //string.Format(, stage / 10);   "Images/Monster/{0}"
+        //string path = "Images/Relics/relics0";      //string.Format(, stage / 10);   "Images/Monster/{0}"
         int relicsFirst = stage / 101;
         int relicsSecond = (stage / 10) % 10;
         string relicsName = string.Format("RelicsAll/RelicsAllScrollView/Viewport/Content/RelicsAllShowObject/RelicsAllStage{0}/RelicsImage{1}", relicsFirst, relicsSecond);

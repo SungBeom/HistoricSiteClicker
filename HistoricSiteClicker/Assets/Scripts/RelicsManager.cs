@@ -19,25 +19,39 @@ public class RelicsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playTimeText.text = string.Format("{0}", RelicsManager.Instance.playTime);
-        turnEndTimeText.text = string.Format("{0}", RelicsManager.Instance.endOfTurnTime);
-
-        StartCoroutine("PlayTime");
-
         //  hero init
-        inHerAttackType = new int[heroAttactType.Length];
+        inHeroAttackType = new int[heroAttactType.Length];
+        inHeroUpgradePrice = new int[heroUpgradePrice.Length];
         for (int i =0; i<heroAttactType.Length; i++)
         {
-            inHerAttackType[i] = heroAttactType[i];
+            inHeroAttackType[i] = heroAttactType[i];
+            inHeroUpgradePrice[i] = heroUpgradePrice[i];
         }
+
 
         //  colleague init
-        inColleagueDamage = new int[colleagueUpgrade.Length];
-        for (int i =0; i<colleagueUpgrade.Length; i++)
+        inColleagueDamage = new int[colleagueDamage.Length];
+        inColleagueUpgradePrice = new int[colleagueUpgradePrice.Length];
+        for (int i =0; i< colleagueDamage.Length; i++)
         {
             inColleagueDamage[i] = colleagueDamage[i] * colleagueUpgrade[i];
+            inColleagueUpgradePrice[i] = colleagueUpgradePrice[i] * colleagueUpgrade[i];
         }
 
+        // relics init
+        inRelicsType = new int[relicsType.Length];
+        inRelicsPrice = new int[relicsPrice.Length];
+        for(int i =0; i< relicsType.Length; i++)
+        {
+            inRelicsType[i] = relicsType[i] * relicsUpgrade[i];
+            inRelicsPrice[i] = relicsPrice[i] * relicsUpgrade[i];
+        }
+
+
+        // timer
+        playTimeText.text = string.Format("{0}", RelicsManager.Instance.playTime);
+        turnEndTimeText.text = string.Format("{0}", RelicsManager.Instance.endOfTurnTime);
+        StartCoroutine("PlayTime");
 
     }
 
@@ -95,6 +109,9 @@ public class RelicsManager : MonoBehaviour
     public int monsterHP;
     public int stage;  //stage의 경우 차후 gamemanager의 데이터를 들고올것
 
+
+
+
     // ========== ========== ========== ==========
     // Hero Control
     // - hero animator;
@@ -106,7 +123,9 @@ public class RelicsManager : MonoBehaviour
     public int[] heroUpgradePrice;
 
     [HideInInspector]
-    public int[] inHerAttackType;
+    public int[] inHeroAttackType;
+    [HideInInspector]
+    public int[] inHeroUpgradePrice;
 
 
     // ========== ========== ========== ==========
@@ -115,6 +134,7 @@ public class RelicsManager : MonoBehaviour
     // public int colleagueNum; -> test용도
 
     //  colleagueUpgrade db에서 강화 횟수 들고옴
+    //  colleagueDamage main에서 들거옴
     //  colleagueDamage0 영웅의 공격력을 저장함
     //  colleagueDamage1 영웅의 공격력을 저장함
     public int[] colleagueUpgrade;
@@ -123,6 +143,8 @@ public class RelicsManager : MonoBehaviour
 
     [HideInInspector]
     public int[] inColleagueDamage;
+    [HideInInspector]
+    public int[] inColleagueUpgradePrice;
     //public int[] 
 
 
@@ -135,10 +157,16 @@ public class RelicsManager : MonoBehaviour
 
     //  내부 relics 내부 강화 적용
     //  relicsUpgrade는 db에서 강화 횟수 들고옴
+    //  0 : ehance
+    //  1 : weaken
     //  relicsEhance는 유적의 저주를 약화 시켜 영웅을 강화 시킴
     //  relicsWeaken는 유적의 저주를 약화 시켜 유적을 약화 시킴
+    public int[] relicsType;
     public int[] relicsUpgrade;
-    public int relicsEhance;
-    public int relicsWeaken;
+    public int[] relicsPrice;
 
+    [HideInInspector]
+    public int[] inRelicsType;
+    [HideInInspector]
+    public int[] inRelicsPrice;
 }

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class ControlOfButton : MonoBehaviour
 {
     public GameObject[] gamePanel;
-    public int select;
+    int select;
     int temp;
 
     public void SelectPanel(int select)

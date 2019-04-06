@@ -8,6 +8,7 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
     public GameObject[] upBtn;
     public GameObject[] upText;
     public GameObject[] gameCharacterAttack;
+    // 차후 moneyText가 아닌 manager에서 가져와서 사용하는 방식으로 적용
     public GameObject moneyText;
 
 
@@ -81,17 +82,17 @@ public class ControlOfColleagueUpgrade : MonoBehaviour {
         }
     }
     //  character damage up
-    void ColleagueDamageUp(int characterNum)
-    {
-        //int damage = gameCharacterAttack[characterNum].GetComponent<Animator>().GetInteger("AttackDamage");
-        ////  damage 변경 공식 추가
-        //damage = (int)(damage * 1.5f);
-        //gameCharacterAttack[characterNum].GetComponent<Animator>().SetInteger("AttackDamage", damage);
-    
-    
-        int damage = RelicsManager.Instance.colleagueDamage[characterNum];
-        //  damage 변경 공식 추가
-        damage = (int)(damage * 1.5f);
-        RelicsManager.Instance.colleagueDamage[characterNum] = damage;
-    }
+    //void ColleagueDamageUp(int characterNum)
+    //{
+    //    //int damage = gameCharacterAttack[characterNum].GetComponent<Animator>().GetInteger("AttackDamage");
+    //    ////  damage 변경 공식 추가
+    //    //damage = (int)(damage * 1.5f);
+    //    //gameCharacterAttack[characterNum].GetComponent<Animator>().SetInteger("AttackDamage", damage);
+    //
+    //
+    //    int damage = RelicsManager.Instance.colleagueDamage[characterNum];
+    //    //  damage 변경 공식 추가
+    //    damage = (int)(damage * 1.5f);
+    //    RelicsManager.Instance.colleagueDamage[characterNum] = damage;
+    //}
 }

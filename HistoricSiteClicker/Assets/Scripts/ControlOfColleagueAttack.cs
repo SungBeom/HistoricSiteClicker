@@ -28,6 +28,6 @@ public class ControlOfColleagueAttack : MonoBehaviour {
     int ColleagueAttack()
     {
         //int colleagueDamage = gameObject.GetComponent<Animator>().GetInteger("AttackDamage");
-        return (RelicsManager.Instance.inColleagueDamage[colleagueNum] + RelicsManager.Instance.inColleagueDamage[colleagueNum] * RelicsManager.Instance.relicsEhance * RelicsManager.Instance.relicsUpgrade[0]);
+        return (RelicsManager.Instance.inColleagueDamage[colleagueNum] + RelicsManager.Instance.inColleagueDamage[colleagueNum] * RelicsManager.Instance.inRelicsType[0]);
     }
 }

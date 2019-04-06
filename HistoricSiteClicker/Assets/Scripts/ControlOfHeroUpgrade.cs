@@ -2,83 +2,101 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.EventSystems;
-public class ControlOfHeroUpgrade : MonoBehaviour {
 
-    public GameObject[] upBtn;
-    public GameObject[] upText;
+
+public class ControlOfHeroUpgrade : MonoBehaviour {
+    public Button[] upBtn;
+    public Text[] upText;
     public GameObject moneyText;
 
-    public int selectUpgrade;
+    int selectUpgradeButton;
 
     // Use this for initialization
-    void Start()
-    {
-        foreach (GameObject go in upBtn)
-            go.GetComponentInChildren<Text>().text = "구매";
-    }
+    //void Start()
+    //{
+    //    //  todo : 강화에 따른 현황 및 해금 변경
+    //    //upBtn.text = "구매";
+    //}
 
-    public void OnButtonFunction()
-    {
-        string currentTag = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
-        //  태그가 고용이 아닌 경우 업그레이드, 고용인 경우 고용
-        if (currentTag != "구매")
-        {
-            OnUpgrade();
-        }
-        //  고용을 강화로 변경
-        else
-        {
-            OnBuy();
-        }
-
-    }
-    void OnBuy()
-    {
-        string btnName = EventSystem.current.currentSelectedGameObject.name;
-        int num = int.Parse(btnName[17].ToString());
-        upText[num].GetComponent<Text>().text = "1000";
-        EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "강화";
-    }
     //  unit upgrade
-    //  todo : 업그레이드에 관한 비율은 차후 조정
-    void OnUpgrade()
+    public void OnUpgrade(int selectUpgradeButton)
     {
-        string btnName = EventSystem.current.currentSelectedGameObject.name;
-        int num = int.Parse(btnName[17].ToString());
+        this.selectUpgradeButton = selectUpgradeButton;
 
+        int money = int.Parse(moneyText.GetComponent<Text>().text);
+        int upgradeCost = RelicsManager.Instance.heroUpgradePrice[selectUpgradeButton];
 
-
-        if (CheckUpgrade())
+        if (CheckUpgrade(money, upgradeCost))
         {
             Debug.Log("Upgrade success");
+            Upgrade(money, upgradeCost);
         }
         else
         {
             Debug.Log("Upgrade fail");
         }
     }
-    bool CheckUpgrade()
+    //  강화 가능 여부 확인
+    bool CheckUpgrade(int money, int upgradeCost)
     {
-        int money = int.Parse(moneyText.GetComponent<Text>().text);
-        int upgradeCost = RelicsManager.Instance.heroUpgradePrice[selectUpgrade];
         if (money >= upgradeCost)
         {
-            money = money - upgradeCost;
-            RelicsManager.Instance.heroUpgrade[selectUpgrade]++;
-            RelicsManager.Instance.heroUpgradePrice[selectUpgrade] = upgradeCost * RelicsManager.Instance.heroUpgrade[selectUpgrade];
-
-            moneyText.GetComponent<Text>().text = money.ToString();
-            //upText[num].GetComponent<Text>().text = cost.ToString();
             return true;
         }
-
         return false;
     }
-    //  hero attack damage increase
-    void HeroNormalAttackDamageUpgrade()
+    //  강화
+    void Upgrade(int money, int upgradeCost)
     {
+        money = money - upgradeCost;
+        // 강화 수치 증가
+        RelicsManager.Instance.heroUpgrade[selectUpgradeButton]++;
+        // 강화 비용 증가
+        RelicsManager.Instance.heroUpgradePrice[selectUpgradeButton] = upgradeCost * RelicsManager.Instance.heroUpgrade[selectUpgradeButton];
+        // 변경된 강화 비용 적용
+        switch(selectUpgradeButton)
+        {
+            // heroattacktype[0]
+            case 0:
+                NormalAttackDamageUpgrade();
+                break;
+            // heroattacktype[1]
+            case 1:
+                CriticalProbabilityUpgrade();
+                break;
+            // heroattacktype[2]
+            case 2:
+                CriticalDamageUpgrade();
+                break;
+            default:
+                break;
+        }
+        moneyText.GetComponent<Text>().text = money.ToString();
+    }
 
+
+    /*
+     * hero upgrade에 관한 함수
+     * - 기본 공격
+     * - 크리티컬 발동 확률
+     * - 크리티컬 
+     * 차후 각 기능별 레벨 디자인이 달라짐으로, 구분 
+     */
+
+    //  hero attack damage increase
+    void NormalAttackDamageUpgrade()
+    {
+        RelicsManager.Instance.inHeroAttackType[selectUpgradeButton] = RelicsManager.Instance.heroAttactType[selectUpgradeButton] * RelicsManager.Instance.heroUpgrade[selectUpgradeButton];
+    }
+    //  hero critical probability increase
+    void CriticalProbabilityUpgrade()
+    {
+        RelicsManager.Instance.inHeroAttackType[selectUpgradeButton] = RelicsManager.Instance.heroAttactType[selectUpgradeButton] * RelicsManager.Instance.heroUpgrade[selectUpgradeButton];
+    }
+    //  hero critical damage increase
+    void CriticalDamageUpgrade()
+    {
+        RelicsManager.Instance.inHeroAttackType[selectUpgradeButton] = RelicsManager.Instance.heroAttactType[selectUpgradeButton] * RelicsManager.Instance.heroUpgrade[selectUpgradeButton];
     }
 }

@@ -68,12 +68,13 @@ public class ControlOfMonster : MonoBehaviour {
 
 
     //  몬스터 체력 초기화(stage에 따른 체력 변화)
+    //  todo : 절치 체력에 대한 문제 제거
     void MonsterHPInit()
     {
         int hp = 100 * RelicsManager.Instance.stage;// * stage;
 
         //  디버프 적용
-        hp = hp - hp * (RelicsManager.Instance.relicsWeaken * RelicsManager.Instance.relicsUpgrade[1]);
+        hp = hp - (int)(0.1 * RelicsManager.Instance.inRelicsType[1]);
         RelicsManager.Instance.monsterTotalHP = RelicsManager.Instance.monsterHP = hp;
     }
 
