@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 /* 
  * hero attack type 
  * 0 : 공력력
@@ -10,10 +9,21 @@ using UnityEngine;
  */
 public class ControlOfHeroAttack : MonoBehaviour
 {
+    //System.Random random = new System.Random();
     //  기본 공격
     public void HeroAttack()
     {
-        NormalAttack();
+        int randomValue = Random.Range(0, 100);
+        if (randomValue > RelicsManager.Instance.heroAttactType[2])
+        {
+            Debug.Log("normal attack " + randomValue);
+            NormalAttack();
+        }
+        else
+        {
+            Debug.Log("critical attack " + randomValue);
+            CriticalAttack();
+        }
     }
     // 기본 공격 적용
     void NormalAttack()

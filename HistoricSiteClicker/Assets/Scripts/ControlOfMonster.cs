@@ -68,7 +68,6 @@ public class ControlOfMonster : MonoBehaviour {
 
 
     //  몬스터 체력 초기화(stage에 따른 체력 변화)
-    //  todo : 절치 체력에 대한 문제 제거
     void MonsterHPInit()
     {
         int hp = 100 * RelicsManager.Instance.stage;// * stage;
