@@ -28,7 +28,6 @@ public class RelicsManager : MonoBehaviour
             inHeroUpgradePrice[i] = heroUpgradePrice[i];
         }
 
-
         //  colleague init
         inColleagueDamage = new int[colleagueDamage.Length];
         inColleagueUpgradePrice = new int[colleagueUpgradePrice.Length];
@@ -98,6 +97,14 @@ public class RelicsManager : MonoBehaviour
         }
     }
 
+    // 임시 사용 통합후 삭제
+    public bool[] artifactGetPiece;
+    public uint artifactCount;
+    public bool[] activeArtifact;
+
+
+
+
 
     // ========== ========== ========== ==========
     // Monster Control
@@ -108,8 +115,6 @@ public class RelicsManager : MonoBehaviour
     public int monsterTotalHP;
     public int monsterHP;
     public int stage;  //stage의 경우 차후 gamemanager의 데이터를 들고올것
-
-
 
 
     // ========== ========== ========== ==========

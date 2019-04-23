@@ -16,7 +16,7 @@ public class ControlOfHeroAttack : MonoBehaviour
         int randomValue = Random.Range(0, 100);
         if (randomValue > RelicsManager.Instance.heroAttactType[2])
         {
-            Debug.Log("normal attack " + randomValue);
+            //Debug.Log("normal attack " + randomValue);
             NormalAttack();
         }
         else
